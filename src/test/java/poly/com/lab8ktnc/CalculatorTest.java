@@ -1,0 +1,37 @@
+package poly.com.lab8ktnc;
+
+import org.testng.annotations.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class CalculatorTest {
+
+    Calculator calc = new Calculator();
+
+    @Test
+    public void testAdd() {
+        Assert.assertEquals(calc.add(2, 3), 5);
+    }
+
+    @Test
+    public void testSubtract() {
+        Assert.assertEquals(calc.subtract(5, 2), 3);
+    }
+
+    @Test
+    public void testMultiply() {
+        Assert.assertEquals(calc.multiply(4, 2), 8);
+    }
+
+    @Test
+    public void testDivide() {
+        Assert.assertEquals(calc.divide(10, 2), 5);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testDivideByZero() {
+        calc.divide(5, 0);
+    }
+}
+
