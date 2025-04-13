@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowfall Effect with Love</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+   body {
+    margin: 0;
+    overflow: hidden;
+    background: radial-gradient(circle, rgb(243, 119, 181) 20%,rgb(110, 0, 55) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+
+
+        /* Trái tim tuyết */
+        .snowflake {
+            position: absolute;
+            top: -50px;
+            color: white;
+            font-size: 2em;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(-50px);
+                opacity: 0;
+            }
+        }
+
+        /* Trái tim đập */
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 500px;
+            color: red;
+            animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        /* Trái tim nhỏ bay ra */
+        .small-heart {
+            position: absolute;
+            color: red;
+            font-size: 60px;
+            animation: smallHeartAnimation 10s forwards;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes smallHeartAnimation {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(2) translate(var(--x), var(--y));
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+
+        /* Nổ trái tim */
+        .heart-explode {
+            animation: explodeHeart 0.5s forwards;
+        }
+
+        @keyframes explodeHeart {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            30% {
+                transform: scale(2) rotate(10deg);
+            }
+            50% {
+                transform: scale(2.5) rotate(30deg);
+            }
+            70% {
+                transform: scale(2) rotate(60deg);
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hiệu ứng dòng chữ */
+        .love-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 200px;
+            font-weight: bold;
+            font-family: 'Dancing Script', cursive;
+            color: #FF1493;
+            text-shadow: 
+                0 0 15px rgba(248, 244, 246, 0.8),
+                0 0 25px rgba(255, 20, 145, 0.925),
+                0 0 35px rgba(255, 20, 145, 0.932),
+                0 0 50px rgba(241, 2, 122, 0.89);
+            background: linear-gradient(45deg, #FF69B4, #f8f2f5);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: fadeInOut 3s forwards;
+            text-align: center;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -60%) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -40%) scale(1.2);
+            }
+        }
+
+        /* Hào quang phóng ra từ trái tim */
+        .heart-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 20, 145, 0.7);
+            box-shadow: 0 0 40px 20px rgba(255, 20, 145, 0.5);
+            animation: glowEffect 1.5s forwards;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        @keyframes glowEffect {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Trái tim đập -->
+    <div class="heart" id="bigHeart">❤️</div>
+
+    <script>
+        const createSnowflake = () => {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❤️'; /* Sử dụng hình trái tim thay cho bông tuyết */
+
+            const size = Math.random() * 20 + 20;
+            const position = Math.random() * window.innerWidth;
+
+            snowflake.style.fontSize = `${size}px`;
+            snowflake.style.left = `${position}px`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        };
+
+        setInterval(createSnowflake, 100);
+
+        let clickCount = 0;
+
+        document.getElementById('bigHeart').addEventListener('click', (e) => {
+            clickCount++;
+
+            const animationDuration = 0.5 + (clickCount * 0.1);  // Mỗi lần nhấn tăng thêm 0.1 giây
+
+            const bigHeart = document.getElementById('bigHeart');
+
+            // Thêm hiệu ứng hào quang
+            const glow = document.createElement('div');
+            glow.classList.add('heart-glow');
+            document.body.appendChild(glow);
+
+            setTimeout(() => {
+                glow.remove();  // Xóa hào quang sau 1.5 giây
+            }, 1500);
+
+            if (clickCount === 3) {
+                bigHeart.classList.add('heart-explode');
+
+                // Tạo trái tim nhỏ bay ra ít hơn và to dần khi bay
+                for (let i = 0; i < 200; i++) {  // Giảm số lượng trái tim nhỏ
+                    const smallHeart = document.createElement('div');
+                    smallHeart.classList.add('small-heart');
+                    smallHeart.textContent = '❤️';
+
+                    const angle = Math.random() * 360;
+                    const distance = Math.random() * 5000 + 3000; // Tăng khoảng cách để trái tim bay xa hơn
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+
+                    smallHeart.style.setProperty('--x', `${x}px`);
+                    smallHeart.style.setProperty('--y', `${y}px`);
+
+                    smallHeart.style.left = `${e.clientX - 30}px`;
+                    smallHeart.style.top = `${e.clientY - 30}px`;
+
+                    smallHeart.style.animationDuration = `${10}s`;  // Lần thứ 3 kéo dài thời gian bay
+
+                    smallHeart.style.animationTimingFunction = 'ease-out'; // Mượt mà hơn
+
+                    document.body.appendChild(smallHeart);
+
+                    setTimeout(() => {
+                        smallHeart.remove();
+                    }, 10000); // Kéo dài thời gian biến mất lên 10 giây
+                }
+
+                // Hiển thị dòng chữ "I LOVE YOU"
+                setTimeout(() => {
+                    const message = document.createElement('div');
+                    message.textContent = "I LOVE YOU";
+                    message.classList.add('love-message');
+                    document.body.appendChild(message);
+
+                    setTimeout(() => {
+                        message.remove();
+                    }, 7000); // Thời gian hiển thị dòng chữ
+                }, 500);
+
+                // Reset lại số lần nhấn và làm trái tim lớn xuất hiện lại sau khi nổ xong
+                setTimeout(() => {
+                    bigHeart.classList.remove('heart-explode');
+                    clickCount = 0; // Reset lại số lần nhấn
+
+                    // Đảm bảo trái tim lớn sẽ xuất hiện lại
+                    bigHeart.style.display = 'block';
+                }, 3000);
+            } else {
+                // Hiệu ứng bình thường cho lần 1 và 2 (nhanh hơn)
+                for (let i = 0; i < 100; i++) {
+                    const smallHeart = document.createElement('div');
+                    smallHeart.classList.add('small-heart');
+                    smallHeart.textContent = '❤️';
+
+                    const angle = Math.random() * 360;
+                    const distance = Math.random() * 500 + 500;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+
+                    smallHeart.style.setProperty('--x', `${x}px`);
+                    smallHeart.style.setProperty('--y', `${y}px`);
+
+                    smallHeart.style.left = `${e.clientX - 30}px`;
+                    smallHeart.style.top = `${e.clientY - 30}px`;
+
+                    smallHeart.style.animationDuration = `${3}s`;  // Giảm thời gian bay xuống 7 giây
+
+                    document.body.appendChild(smallHeart);
+
+                    setTimeout(() => {
+                        smallHeart.remove();
+                    }, 3000);  // Kéo dài thời gian biến mất lên 7 giây
+                }
+            }
+        });
+    </script>
+</body>
+</html>

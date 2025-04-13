@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-04-04T19:46:40 ICT" name="Default suite" finished-at="2025-04-04T19:47:12 ICT" duration-ms="32250">
+    <groups>
+    </groups>
+    <test started-at="2025-04-04T19:46:40 ICT" name="Default test" finished-at="2025-04-04T19:47:12 ICT" duration-ms="32250">
+      <class name="poly.com.lab6">
+        <test-method is-config="true" signature="setupExcel()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:40 ICT" name="setupExcel" finished-at="2025-04-04T19:46:40 ICT" duration-ms="355" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupExcel -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:40 ICT" name="setUp" finished-at="2025-04-04T19:46:43 ICT" duration-ms="2413" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testLogin(java.lang.String,java.lang.String,boolean)[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:43 ICT" name="testLogin" data-provider="loginData" finished-at="2025-04-04T19:46:50 ICT" duration-ms="7639" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[2019.2020.91.kyanh@gmail.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[MK@tkb16]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[true]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:50 ICT" name="tearDown" finished-at="2025-04-04T19:46:50 ICT" duration-ms="97" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:50 ICT" name="setUp" finished-at="2025-04-04T19:46:52 ICT" duration-ms="1845" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testLogin(java.lang.String,java.lang.String,boolean)[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:52 ICT" name="testLogin" data-provider="loginData" finished-at="2025-04-04T19:46:59 ICT" duration-ms="7270" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[2019.2020.91.kyanh@gmail.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yes]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:46:59 ICT" name="tearDown" finished-at="2025-04-04T19:47:00 ICT" duration-ms="97" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:00 ICT" name="setUp" finished-at="2025-04-04T19:47:01 ICT" duration-ms="1551" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testLogin(java.lang.String,java.lang.String,boolean)[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:01 ICT" name="testLogin" data-provider="loginData" finished-at="2025-04-04T19:47:09 ICT" duration-ms="7626" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[wrongemail@example.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[MK@tkb16]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:09 ICT" name="tearDown" finished-at="2025-04-04T19:47:09 ICT" duration-ms="102" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:09 ICT" name="setUp" finished-at="2025-04-04T19:47:11 ICT" duration-ms="2077" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testLogin(java.lang.String,java.lang.String,boolean)[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:11 ICT" name="testLogin" data-provider="loginData" finished-at="2025-04-04T19:47:12 ICT" duration-ms="1059" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:12 ICT" name="tearDown" finished-at="2025-04-04T19:47:12 ICT" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="saveExcel()[pri:0, instance:poly.com.lab6@3059cbc]" started-at="2025-04-04T19:47:12 ICT" name="saveExcel" finished-at="2025-04-04T19:47:12 ICT" duration-ms="87" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- saveExcel -->
+      </class> <!-- poly.com.lab6 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

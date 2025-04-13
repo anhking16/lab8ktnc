@@ -1,0 +1,65 @@
+package ServiceImpl;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+
+import dao.UserDAOadmin;
+import entily.User;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet({"/user", "/user/index", "/user/delete", "/user/create", "/user/update", "/user/edit/*", "/user/search"})
+public class UserServletadmin extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDAOadmin dao = new UserDAOadmin();
+        User user = new User();
+
+        String uri = req.getRequestURI();
+        String searchKeyword = req.getParameter("search"); // Lấy từ khóa tìm kiếm nếu có
+
+        try {
+            if (uri.contains("edit")) {
+                String idStr = uri.substring(uri.lastIndexOf("/") + 1);
+                Integer id = Integer.parseInt(idStr); // Chuyển đổi ID từ String sang Integer
+                user = dao.findById(id);
+                if (user != null) {
+                    req.setAttribute("form", user);
+                } else {
+                    req.setAttribute("message", "Người dùng không tồn tại.");
+                }
+            } else if (uri.contains("create")) {
+                BeanUtils.populate(user, req.getParameterMap());
+                dao.create(user);
+                req.setAttribute("message", "Thêm mới thành công");
+            } else if (uri.contains("update")) {
+                BeanUtils.populate(user, req.getParameterMap());
+                dao.update(user);
+                req.setAttribute("message", "Cập nhật thành công");
+            } else if (uri.contains("delete")) {
+                String idStr = req.getParameter("id");
+                Integer id = Integer.parseInt(idStr); // Chuyển đổi ID từ String sang Integer
+                dao.remove(id);
+                req.setAttribute("message", "Xóa thành công");
+            }
+        } catch (Exception e) {
+            req.setAttribute("message", "Đã xảy ra lỗi: " + e.getMessage());
+        }
+
+        // Xử lý tìm kiếm theo nhiều thuộc tính (email, id, fullname)
+        List<User> users;
+        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+            users = dao.findByKeyword(searchKeyword); // Tìm kiếm theo từ khóa
+        } else {
+            users = dao.findAll(); // Lấy toàn bộ danh sách nếu không có từ khóa
+        }
+
+        req.setAttribute("items", users); // Gán kết quả tìm kiếm vào thuộc tính "items"
+        req.getRequestDispatcher("/views/admin/user.jsp").forward(req, resp);
+    }
+}

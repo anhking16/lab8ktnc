@@ -1,0 +1,81 @@
+package controller;
+
+import java.io.IOException;
+
+import ServiceImpl.HistoryServiceImpl;
+import ServiceImpl.VideoServiceImpl;
+import constant.SessionAttr;
+import entily.History;
+import entily.User;
+import entily.Video;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import service.HistoryService;
+import service.VideoService;
+
+
+@WebServlet(urlPatterns = "/video")
+public class VideoController extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8686024796523882903L;
+	/**
+	 * 
+	 */
+	
+	private VideoService videoService = new VideoServiceImpl();
+	private HistoryService historyService = new HistoryServiceImpl();
+	
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	// TODO Auto-generated method stub
+	String actionParam = req.getParameter("action");
+	String href = req.getParameter("id");
+	HttpSession session = req.getSession();
+	
+	switch(actionParam) {
+	case "watch":
+		doGetWath(session, href, req, resp);
+	case "like":
+		doGetLike(session, href, req, resp);
+	}
+}
+private void doGetWath(HttpSession session,String href, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	
+	Video video = videoService.findByHref(href);
+	req.setAttribute("video", video);
+	
+	User currenUser = (User) session.getAttribute(SessionAttr.CURRENT_USER);
+	if(currenUser != null) {
+		History history = historyService.create(currenUser, video);
+		req.setAttribute("flagLikedBtn", history.getIsLiked());
+	}
+	RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/user/video-detail.jsp");
+	requestDispatcher.forward(req, resp);
+}
+
+
+
+
+private void doGetLike(HttpSession session,String href, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	resp.setContentType("application/json");
+	User currenUser = (User) session.getAttribute(SessionAttr.CURRENT_USER);
+	boolean result = historyService.updateLikeOrUnlike(currenUser, href);
+	if(result == true) {
+		resp.setStatus(204);
+	}else {
+		resp.setStatus(400);
+	}
+}
+
+
+}

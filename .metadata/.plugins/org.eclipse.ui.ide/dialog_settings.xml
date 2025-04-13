@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="false"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="E:\java6\lab5-dv-java6"/>
+			<item value="E:\java6\J6_Security3Google\J6_Security3Google"/>
+			<item value="E:\java6\J6_Security3Google"/>
+			<item value="E:\eclipseluu\lab5ktnc"/>
+			<item value="E:\Java5\Bai_Thi_Test"/>
+			<item value="E:\baove1\baitesst12355"/>
+			<item value="E:\baove1\baitesst"/>
+			<item value="E:\Java5\baitesst"/>
+			<item value="E:\Java5\Bai_Thi_Test-1"/>
+			<item value="E:\Java5\Assignment (2)_thamkhao\Assignment"/>
+			<item value="E:\Java5\lab5java5\lab5_java5"/>
+			<item value="E:\Java5\lab7java5"/>
+			<item value="E:\Java5\lab6-java5\lab6 -java5"/>
+			<item value="E:\Java5\lab5java5"/>
+			<item value="E:\Java5\lab4-java5"/>
+			<item value="E:\Java5\LAB3-java5"/>
+			<item value="E:\Java5\Lab2java5\lab2java5"/>
+			<item value="E:\Java5\Lab2java5"/>
+			<item value="E:\Java5\lab1java5"/>
+			<item value="E:\Java5\sof3022_lab1\sof3022_lab1"/>
+			<item value="E:\Java5\ASM-Java5"/>
+			<item value="E:\Java5\ASM-Java51"/>
+			<item value="E:\eclipseluu\asm_java4 - Sao chép"/>
+			<item value="E:\Java5\LAB_6_SOF3022"/>
+			<item value="E:\Java5\asmjava51234"/>
+			<item value="E:\Java5\asmjava5"/>
+			<item value="E:\Java5\ASM_Java5 - Sao chép"/>
+			<item value="E:\eclipseluu\asmjava4-2"/>
+			<item value="E:\eclipseluu\ASM_Java3"/>
+			<item value="E:\Java5\SpringWeb-master\SpringWeb-master"/>
+			<item value="E:\Java5\ASM_Java5"/>
+			<item value="E:\eclipseluu\baove_dv_java4"/>
+			<item value="E:\eclipseluu\BaiThiDot2Java4"/>
+			<item value="E:\eclipseluu\BaiTest"/>
+			<item value="E:\eclipseluu\asm_java4-2\asm_java4-2"/>
+			<item value="E:\eclipseluu\asm_java4-2"/>
+			<item value="E:\eclipseluu\asm_java4"/>
+			<item value="E:\slisejava4\LAB7_Java4\LAB7_Java4"/>
+			<item value="E:\slisejava4\SOF3011Slide7\SOF3011Slide7"/>
+			<item value="E:\slisejava4\SOF3011Slide7"/>
+			<item value="E:\slisejava4\SOF3011Slide6\SOF3011Slide6"/>
+			<item value="E:\slisejava4\SOF3011Slide6"/>
+			<item value="E:\eclipseluu\LAB5_PS38556\LABB5"/>
+			<item value="E:\eclipseluu\SOF3011Slide5\SOF3011Slide5"/>
+			<item value="E:\slisejava4\asm-java-4-main"/>
+			<item value="E:\lapjava4\Lab4"/>
+			<item value="E:\lapjava4\Lab3_dv_java4"/>
+			<item value="E:\slisejava4\SOF3011Slide3\SOF3011Slide3"/>
+			<item value="E:\lapjava4\LAB2_java4\LAB2_java4"/>
+			<item value="E:\eclipseluu\LAB2_java4\LAB2_java4"/>
+			<item value="E:\eclipseluu\LAB2_java4"/>
+			<item value="E:\eclipseluu\t2"/>
+			<item value="E:\slisejava4\SOF3011Slide2\SOF3011Slide2"/>
+			<item value="E:\eclipseluu\LAB1_Java4_"/>
+			<item value="E:\lapjava4\SOF3012Lab1"/>
+			<item value="E:\lapjava4\SOF3012Lab1\SOF3012Lab1"/>
+			<item value="E:\eclipseluu\tesst2"/>
+			<item value="E:\eclipseluu\TEST_THI_JAVA3-master"/>
+			<item value="E:\ASM_Java3_Đoàn Trọng Tấn\ASM_Java3_Đoàn Trọng Tấn"/>
+			<item value="E:\ASM_Java3"/>
+			<item value="E:\eclipseluu\Slide6_java3_fall2024"/>
+			<item value="D:\Slide6_java3_fall2024_lab7"/>
+			<item value="E:\eclipseluu\Lab3_java3_fall2024"/>
+			<item value="E:\eclipseluu\Lab2"/>
+			<item value="E:\eclipseluu\Slide21_java3_fall2024"/>
+			<item value="E:\eclipseluu\lap2java3"/>
+			<item value="E:\Lab1_java31_fall2024\Lab1_java31_fall2024"/>
+			<item value="E:\Lab1_java31_fall2024"/>
+		</list>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="TOGGLE_SELECTED" value="false"/>
+		<item key="DIALOG_WIDTH" value="500"/>
+		<item key="DIALOG_HEIGHT" value="389"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

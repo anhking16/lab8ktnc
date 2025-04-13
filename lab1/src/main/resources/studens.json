@@ -1,0 +1,51 @@
+
+[
+{
+
+"name": "Nguyễn Văn T",
+"gender": true,
+"marks": 7.5,
+"contact": {
+"email": "T@gmail.com",
+"phone": "0913745789"
+},
+"subjects": ["WEB205", "COM108"]
+
+},
+{
+
+"name": "Nguyễn Văn E",
+"gender": true,
+"marks": 7,
+"contact": {
+"email": "E@gmail.com",
+"phone": "0913745789"
+},
+"subjects": ["WEB205", "COM108"]
+
+},
+{
+
+"name": "Nguyễn Văn D",
+"gender": true,
+"marks": 9,
+"contact": {
+"email": "D@gmail.com",
+"phone": "0913745789"
+},
+"subjects": ["WEB205", "COM108"]
+
+},
+{
+
+"name": "Nguyễn Văn C",
+"gender": true,
+"marks": 8.5,
+"contact": {
+"email": "C@gmail.com",
+"phone": "0913745789"
+},
+"subjects": ["WEB205", "COM108"]
+
+}
+]

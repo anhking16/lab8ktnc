@@ -1,0 +1,11 @@
+package poly.findUsersByPage;
+
+public void findUsersByPage(int pageNumber, int pageSize) {
+    String jpql = "SELECT o FROM User o";
+    TypedQuery<User> query = em.createQuery(jpql, User.class);
+    query.setFirstResult(pageNumber * pageSize);
+    query.setMaxResults(pageSize);
+    List<User> users = query.getResultList();
+
+    users.forEach(user -> System.out.println(user.getFullname() + ": " + user.getEmail()));
+}

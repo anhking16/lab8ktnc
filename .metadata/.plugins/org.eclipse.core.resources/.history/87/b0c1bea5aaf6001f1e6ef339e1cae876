@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý Người Dùng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="text-center">Quản lý Người Dùng</h2>
+
+    <form th:action="@{/users/save}" method="post" th:object="${account}">
+        <div class="mb-3">
+            <label class="form-label">ID</label>
+            <input type="text" class="form-control" th:field="*{id}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" th:field="*{password}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Họ và tên</label>
+            <input type="text" class="form-control" th:field="*{fullname}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" th:field="*{admin}">
+            <label class="form-check-label">Là Admin</label>
+        </div>
+        <button type="submit" class="btn btn-success">Lưu</button>
+    </form>
+
+    <hr>
+
+    <form th:action="@{/users/search}" method="get">
+        <input type="text" name="keyword" class="form-control mb-2" placeholder="Tìm kiếm theo ID hoặc Tên">
+        <button type="submit" class="btn btn-info">Tìm kiếm</button>
+    </form>
+
+    <h3>Danh sách Người Dùng</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="acc : ${accounts}">
+                <td th:text="${acc.id}"></td>
+                <td th:text="${acc.fullname}"></td>
+                <td th:text="${acc.email}"></td>
+                <td th:text="${acc.admin ? 'Có' : 'Không'}"></td>
+                <td>
+                    <a th:href="@{/users/edit/{id}(id=${acc.id})}" class="btn btn-primary btn-sm">Sửa</a>
+                    <a th:href="@{/users/delete/{id}(id=${acc.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

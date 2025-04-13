@@ -1,0 +1,44 @@
+package admin;
+
+import java.io.IOException;
+import java.util.List;
+
+import constant.SessionAttr;
+import dto.VideoLikedInfo;
+import entily.User;
+import impl.StatsServiceImpl;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import service.StatsService;
+
+@WebServlet(urlPatterns = "/admin",name = "HomeControllerOfAdmin")
+public class HomeController extends HttpServlet{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6237486513461937117L;
+private StatsService statsService = new StatsServiceImpl();
+
+
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	HttpSession session = req.getSession( );
+	User currentUser = (User) session.getAttribute(SessionAttr.CURRENT_USER);
+	
+	if (currentUser != null && currentUser.getIsAdmin() == Boolean.TRUE) {
+		List<VideoLikedInfo> videos = statsService. findVideoLikedInfo();
+		req.setAttribute("videos", videos);
+	RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/admin/home.jsp");
+	requestDispatcher. forward(req, resp);
+	} else {
+		resp.sendRedirect("index");
+	}
+}
+
+}

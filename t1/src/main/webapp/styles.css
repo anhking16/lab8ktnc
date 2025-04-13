@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+	 background-color: #ffffff; /* Thay đổi màu nền thành xanh đậm */
+    color: #bbe1fa; /* Thay đổi màu chữ thành xanh nhạt */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff; /* Thay đổi màu nền của container thành xanh đậm hơn */
+    padding: 30px; /* Tăng padding */
+    border-radius: 15px; /* Tăng bo tròn góc */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); /* Tăng kích thước shadow */
+    border: 2px solid blargb(0, 64, 128)  ; 
+}
+
+.form-container {
+    margin-bottom: 25px; /* Tăng khoảng cách */
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 15px; /* Tăng khoảng cách dưới tiêu đề */
+    font-size: 2em; /* Tăng kích thước tiêu đề */
+    color: #3282b8; /* Thay đổi màu chữ tiêu đề */
+}
+
+p {
+    margin-bottom: 25px; /* Tăng khoảng cách dưới đoạn văn */
+    font-size: 1.1em; /* Tăng kích thước chữ */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Tăng khoảng cách giữa các nhóm input */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px; /* Tăng padding */
+    border-radius: 8px; /* Tăng bo tròn góc */
+    border: none;
+    margin-top: 8px; /* Tăng khoảng cách phía trên */
+    background-color: #bbe1fa; /* Thay đổi màu nền của input */
+    color: #0f4c75; /* Thay đổi màu chữ */
+}
+
+.role-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Tăng khoảng cách giữa các thành phần */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Tăng khoảng cách giữa các nút */
+    margin-top: 25px; /* Tăng khoảng cách phía trên */
+}
+
+button {
+    padding: 12px 25px; /* Tăng kích thước nút */
+    border: none;
+    border-radius: 8px; /* Tăng bo tròn góc */
+    font-size: 1.1em; /* Tăng kích thước chữ */
+    cursor: pointer;
+}
+
+
+
+
+
+
+.user-form-button {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    color: white; /* Màu chữ chung cho các nút */
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+
+.user-form-button.add {
+    background-color: #007bff; /* Màu xanh dương cho nút Thêm */
+}
+
+.user-form-button.add:hover {
+    background-color: #0056b3; /* Màu khi hover cho nút Thêm */
+}
+
+.user-form-button.delete {
+    background-color: #dc3545; /* Màu đỏ cho nút Xóa */
+}
+
+.user-form-button.delete:hover {
+    background-color: #c82333; /* Màu khi hover cho nút Xóa */
+}
+
+.user-form-button.update {
+    background-color: #28a745; /* Màu xanh lá cho nút Cập Nhật */
+}
+
+.user-form-button.update:hover {
+    background-color: #218838; /* Màu khi hover cho nút Cập Nhật */
+}
+
+.user-form-button.reset {
+    background-color: #ffc107; /* Màu vàng cho nút Làm mới */
+}
+
+.user-form-button.reset:hover {
+    background-color: #e0a800; /* Màu khi hover cho nút Làm mới */
+}
+
+
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px; /* Tăng khoảng cách phía trên */
+}
+
+.user-table thead {
+    background-color: #00b4d8; /* Thay đổi màu nền của thead */
+    color: #1b262c; /* Thay đổi màu chữ của thead */
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px; /* Tăng kích thước padding */
+    border: 1px solid #e0e0e0; /* Thay đổi màu đường viền */
+    text-align: center;
+    font-size: 1em; /* Tăng kích thước chữ */
+}
+
+.user-table tbody tr:nth-child(even) {
+    background-color: #dbe6f6; /* Thay đổi màu nền cho hàng chẵn */
+    color: #0f4c75; /* Thay đổi màu chữ cho hàng chẵn */
+}

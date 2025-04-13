@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Lab3_java3_fall2024/src/main/java"/>
+	<classpathentry kind="output" path="Lab3_java3_fall2024/target/classes"/>
+</classpath>

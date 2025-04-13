@@ -1,0 +1,79 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý tin tức</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 960px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content {
+            padding: 20px;
+        }
+        footer {
+            background-color: #0073e6;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Công cụ quản trị tin tức</h1>
+    </header>
+
+    <nav>
+        <a href="indexquanly.jsp">Trang chủ</a>
+        <a href="#">Tin tức</a>
+        <a href="#">Loại tin</a>
+        <a href="#">Người dùng</a>
+        <a href="#">Newsletter</a>
+    </nav>
+
+    <div class="content">
+        <!-- Nội dung của từng trang sẽ được load ở đây -->
+        <jsp:include page="${pageContent}"/>
+    </div>
+
+    <footer>
+        <p>PS38987</p>
+    </footer>
+</div>
+
+</body>
+</html>

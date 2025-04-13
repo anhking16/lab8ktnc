@@ -1,0 +1,47 @@
+package com.poly.controller;
+
+
+import com.poly.dao.UserService;
+import com.poly.model.User;
+
+import ch.qos.logback.core.model.Model;
+
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/users")
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public String viewUsers(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "user";
+    }
+
+    @PostMapping("/save")
+    public String saveUser(@ModelAttribute User user) {
+        userService.saveUser(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editUser(@PathVariable String id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "user";
+    }
+
+    @PostMapping("/search")
+    public String searchUser(@RequestParam String keyword, Model model) {
+        model.addAttribute("users", userService.searchByFullname(keyword));
+        return "user";
+    }
+}
+

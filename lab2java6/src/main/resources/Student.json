@@ -1,0 +1,11 @@
+{
+"name": "Trần Kỳ Anh",
+"gender": true,
+"marks": 7.5,
+"contact": {
+"email": "anh@gmail.com",
+"phone": "0913745789"
+},
+"subjects": ["WEB205", "COM108"]
+
+}

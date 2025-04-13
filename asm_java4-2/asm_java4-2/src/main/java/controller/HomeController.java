@@ -1,0 +1,93 @@
+package controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import ServiceImpl.HistoryServiceImpl;
+import ServiceImpl.VideoServiceImpl;
+import constant.SessionAttr;
+import entily.History;
+import entily.User;
+import entily.Video;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import service.HistoryService;
+import service.VideoService;
+
+@WebServlet(urlPatterns = {"/index","/favorites","/history"})
+public class HomeController extends HttpServlet {
+    
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8314432566626983328L;
+	private VideoService videoService = new VideoServiceImpl();
+	private HistoryService historyService = new HistoryServiceImpl();
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Chuyển hướng đến trang JSP index.jsp
+    	HttpSession session = req.getSession();
+    	  String path = req.getServletPath();
+  		switch (path) {
+  		case "/index":
+  			doGetIndex(req, resp);
+  			break;
+  		case "/favorites":
+  			doGetFavorites(session, req, resp);
+  			break;
+  		case "/history":
+  			doGetHistory(session, req, resp);
+  			break;
+    	
+  		}
+    	
+    	
+    	
+    	
+    	
+    	
+        
+    }
+    private void doGetIndex(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	List<Video> videos = videoService.findAll();
+    	req.setAttribute("videos", videos);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/user/index.jsp");
+        requestDispatcher.forward(req, resp);
+    }
+    
+    
+    
+    private void doGetFavorites(HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    User users = (User)session.getAttribute(SessionAttr.CURRENT_USER);
+    List<History> historys = historyService.findByUserAndIsLiked(users.getUsername());
+    List<Video> videos = new ArrayList<>();
+    historys.forEach(item -> videos.add(item.getVideo()));
+    
+    
+    	req.setAttribute("videos", videos);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/user/favorites.jsp");
+        requestDispatcher.forward(req, resp);
+    }
+    
+    
+    private void doGetHistory(HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User users = (User)session.getAttribute(SessionAttr.CURRENT_USER);
+        List<History> historys = historyService.findByUser(users.getUsername());
+        List<Video> videos = new ArrayList<>();
+        historys.forEach(item -> videos.add(item.getVideo()));
+        
+        
+        	req.setAttribute("videos", videos);
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/user/history.jsp");
+            requestDispatcher.forward(req, resp);
+        }
+    
+    
+    
+}

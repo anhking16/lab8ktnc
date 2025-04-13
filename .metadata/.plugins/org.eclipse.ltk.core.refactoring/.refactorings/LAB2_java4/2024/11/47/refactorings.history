@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;META-INF&apos; to &apos;asm_java4/src/main/java&apos;&#x0D;&#x0A;- Original project: &apos;LAB2_java4&apos;&#x0D;&#x0A;- Destination element: &apos;asm_java4/src/main/java&apos;&#x0D;&#x0A;- Original element: &apos;META-INF&apos;" description="Copy folder" destination="=asm_java4/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/" element1="src/main/java/META-INF" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1731833849172" units="0" version="1.0"/>
+</session>

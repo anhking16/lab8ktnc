@@ -1,0 +1,56 @@
+package com.poly.controller;
+
+import com.poly.dao.AccountDAO;
+import com.poly.model.Account;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/users")
+public class AccountController {
+
+    @Autowired
+    private AccountDAO accountDAO;
+
+    @GetMapping
+    public String list(Model model) {
+        model.addAttribute("accounts", accountDAO.findAll());
+        model.addAttribute("account", new Account());
+        return "user";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute Account account) {
+        accountDAO.save(account);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable String id, Model model) {
+        Optional<Account> acc = accountDAO.findById(id);
+        acc.ifPresent(account -> model.addAttribute("account", account));
+        model.addAttribute("accounts", accountDAO.findAll());
+        return "user";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable String id) {
+        accountDAO.deleteById(id);
+        return "redirect:/users";
+    }
+
+    // Tìm kiếm theo ID hoặc tên
+    @GetMapping("/search")
+    public String search(@RequestParam("keyword") String keyword, Model model) {
+        List<Account> accounts = accountDAO.findByIdContainingOrFullnameContaining(keyword, keyword);
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("account", new Account());
+        return "user";
+    }
+}

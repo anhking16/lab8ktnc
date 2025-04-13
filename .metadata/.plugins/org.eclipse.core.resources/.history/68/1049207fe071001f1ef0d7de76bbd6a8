@@ -1,0 +1,5 @@
+module lap1java3 {
+	exports poly.com.controller;
+
+	requires jakarta.servlet;
+}

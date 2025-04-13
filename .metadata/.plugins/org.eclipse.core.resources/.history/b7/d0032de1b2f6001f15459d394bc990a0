@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bai Thi Thu</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-item {
+        list-style: none;
+    }
+
+    .nav-link {
+        display: inline-block;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #3498db;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-link:hover {
+        background-color: #2980b9;
+        color: #fff;
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-link:active {
+        background-color: #1c6fa5;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: scale(0.98);
+    }
+
+    .nav-link:focus {
+        outline: none;
+        border: 2px solid #fff;
+    }
+</style>
+</head>
+<body>
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/accounts">BANK CHO TAO 5 LỐP</a>
+        </li>
+    </ul>
+</body>
+</html>

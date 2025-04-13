@@ -1,0 +1,87 @@
+package poly.dao;
+import javax.persistence.*;
+
+import poly.bean.User;
+
+import java.util.List;
+
+public class UserManager {
+    EntityManagerFactory factory = Persistence.createEntityManagerFactory("PolyOE");
+    EntityManager em = factory.createEntityManager();
+
+    // Lấy tất cả người dùng
+    public void findAll() {
+        String jpql = "SELECT o FROM User o";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        List<User> list = query.getResultList();
+        list.forEach(user -> {
+            System.out.println(user.getFullname() + ": " + user.getAdmin());
+        });
+    }
+
+    // Tìm người dùng theo ID
+    public void findById(String userId) {
+        User user = em.find(User.class, userId);
+        if (user != null) {
+            System.out.println("User found: " + user.getFullname());
+        } else {
+            System.out.println("User not found!");
+        }
+    }
+
+    // Tạo mới một người dùng
+    public void create(User user) {
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
+    }
+
+    // Cập nhật người dùng
+    public void update(User user) {
+        em.getTransaction().begin();
+        em.merge(user);
+        em.getTransaction().commit();
+    }
+
+    // Xóa người dùng theo ID
+    public void deleteById(String userId) {
+        User user = em.find(User.class, userId);
+        if (user != null) {
+            em.getTransaction().begin();
+            em.remove(user);
+            em.getTransaction().commit();
+            System.out.println("User deleted successfully!");
+        } else {
+            System.out.println("User not found!");
+        }
+    }
+
+    // Bài 3: Tìm kiếm người dùng với email kết thúc bằng "@fpt.edu.vn" và không phải là admin
+    public void findUsersByEmailAndRole() {
+        String jpql = "SELECT o FROM User o WHERE o.email LIKE :search AND o.admin = :role";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        query.setParameter("search", "%@fpt.edu.vn");
+        query.setParameter("role", false);
+        List<User> users = query.getResultList();
+
+        users.forEach(user -> System.out.println(user.getFullname() + ": " + user.getEmail()));
+    }
+
+    // Bài 4: Phân trang danh sách người dùng
+    public void findUsersByPage(int pageNumber, int pageSize) {
+        String jpql = "SELECT o FROM User o";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        query.setFirstResult(pageNumber * pageSize);
+        query.setMaxResults(pageSize);
+        List<User> users = query.getResultList();
+
+        users.forEach(user -> System.out.println(user.getFullname() + ": " + user.getEmail()));
+    }
+    
+    
+    
+    
+    
+    
+    
+}

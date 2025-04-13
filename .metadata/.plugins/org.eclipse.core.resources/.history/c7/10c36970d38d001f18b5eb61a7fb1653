@@ -1,0 +1,163 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.*" %>
+<html>
+<head>
+    <title>Quản Lý Người Dùng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quản Lý Người Dùng</h1>
+    
+    <form action="User Servlet" method="post">
+        <input type="hidden" name="id" id="userId" />
+        Tên người dùng: <input type="text" name="username" required /><br/>
+        Email: <input type="email" name="email" required /><br/>
+        Mật khẩu: <input type="password" name="password" required /><br/>
+        <input type="submit" name="action" value="Create" />
+        <input type="submit" name="action" value="Update" />
+    </form>
+
+    <h2>Danh Sách Người Dùng</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tên người dùng</th>
+            <th>Email</th>
+            <th>Thao tác</th>
+        </tr>
+        <%
+            Connection conn = null;
+            Statement stmt = null;
+            ResultSet rs = null;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/UserManagement", "username", "password");
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM users");
+                while (rs.next()) {
+        %>
+        <tr>
+            <td><%= rs.getInt("id") %></td>
+            <td><%= rs.getString("username") %></td>
+            <td><%= rs.getString("email") %></td>
+            <td>
+                <form action="User Servlet" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="<%= rs.getInt("id") %>" />
+                    <input type="submit" name="action" value="Edit" />
+                </form>
+                <form action="User Servlet" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="<%= rs.getInt("id") %>" />
+                    <input type="submit" name="action" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        <%
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) try { rs.close(); } catch (SQLException e) {}
+                if (stmt != null) try { stmt.close(); } catch (SQLException e) {}
+                if (conn != null) try { conn.close(); } catch (SQLException e) {}
+            }
+        %>
+    </table>
+<h2>Tìm Kiếm Người Dùng</h2>
+<form action="User Servlet" method="post">
+    <input type="text" name="search" placeholder="Tìm kiếm theo tên người dùng" />
+    <input type="submit" name="action" value="Search" />
+</form>
+
+<h2>Danh Sách Người Dùng</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Tên người dùng</th>
+        <th>Email</th>
+        <th>Thao tác</th>
+    </tr>
+    <%
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/UserManagement", "username", "password");
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM users";
+            if (request.getAttribute("resultSet") != null) {
+                rs = (ResultSet) request.getAttribute("resultSet");
+            } else {
+                rs = stmt.executeQuery(query);
+            }
+            while (rs.next()) {
+    %>
+    <tr>
+        <td><%= rs.getInt("id") %></td>
+        <td><%= rs.getString("username") %></td>
+        <td><%= rs.getString("email") %></td>
+        <td>
+            <form action="User Servlet" method="post" style="display:inline;">
+                <input type="hidden" name="id" value="<%= rs.getInt("id") %>" />
+                <input type="submit" name="action" value="Edit" />
+            </form>
+            <form action="User Servlet" method="post" style="display:inline;">
+                <input type="hidden" name="id" value="<%= rs.getInt("id") %>" />
+                <input type="submit" name="action" value="Delete" />
+            </form>
+        </td>
+    </tr>
+    <%
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) {}
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) {}
+            if (conn != null) try { conn.close(); } catch (SQLException e) {}
+        }
+    %>
+</table>
+   <html>
+<head>
