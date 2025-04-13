@@ -1,0 +1,10 @@
+package com.poly;
+
+@SpringBootApplication
+public class BaiThiTest1Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BaiThiTest1Application.class, args);
+	}
+
+}

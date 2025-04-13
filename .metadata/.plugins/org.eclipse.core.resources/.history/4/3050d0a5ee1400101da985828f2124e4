@@ -1,0 +1,72 @@
+package com.poly.test;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+import java.time.Duration;
+
+public class AccountDeleteTest {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @BeforeMethod
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "E:\\kiemthunancao\\chromedriver-win64\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+        driver.get("http://localhost:8080/admin/accounts");
+    }
+
+    @Test
+    public void testDeleteAccount() {
+        String usernameToDelete = "user07";
+
+        try {
+            // Tìm hàng chứa user07
+            WebElement row = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//tr[td[text()='" + usernameToDelete + "']]")
+            ));
+
+            // Tìm nút Xóa trong hàng đó
+            WebElement deleteButton = row.findElement(By.xpath(".//a[contains(text(),'Xóa')]"));
+
+            // Scroll đến nút Xóa để tránh bị che khuất
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", deleteButton);
+            Thread.sleep(500); // đợi 1 chút để phần tử hiện ra hoàn toàn
+
+            // Chờ cho phần tử có thể click
+            wait.until(ExpectedConditions.elementToBeClickable(deleteButton));
+
+            // Override hộp thoại xác nhận bằng JavaScript
+            ((JavascriptExecutor) driver).executeScript("window.confirm = function(){return true;};");
+
+            // Click vào nút Xóa
+            deleteButton.click();
+
+            // Chờ trang load lại (hoặc dùng ExpectedCondition chính xác hơn nếu cần)
+            Thread.sleep(2000);
+
+            // Kiểm tra user đã bị xóa
+            boolean isUserStillThere = driver.getPageSource().contains(usernameToDelete);
+            Assert.assertFalse(isUserStillThere, " Tài khoản vẫn còn trong danh sách sau khi xóa!");
+
+        } catch (NoSuchElementException e) {
+            Assert.fail(" Không tìm thấy tài khoản cần xóa: " + usernameToDelete);
+        } catch (Exception e) {
+            Assert.fail(" Đã xảy ra lỗi: " + e.getMessage());
+        }
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}

@@ -1,0 +1,238 @@
+package poly.phunglv.servlet;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+import poly.phunglv.bean.User;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/")
+public class JpaProgram extends HttpServlet{
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		create();
+		//update();		
+		//delete();
+		//findAll();
+		//findByRole(false);
+		//findByKeyword("le");
+		//findOne("teolv","123");
+		//findPage(1,5);
+	}
+	private static void create() {		
+		// Nạp persistence.xml và tạo EntityManagerFactory
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+		// Tạo EntityManager để bắt đầu làm việc với CSDL
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin(); // Bắt đầu Transaction
+			
+			User entity = new User();
+			entity.setId("ID003");
+			entity.setFullname("Le Van Teo");
+			entity.setEmail("teolv@gmail.com");
+			entity.setPassword("123456");
+
+			// Insert vào CSDL
+			em.persist(entity);
+			
+			em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+		} catch (Exception e) {
+			em.getTransaction().rollback(); // Hủy thao tác
+			System.out.println("Error: "+e);
+		}
+		em.close();
+		emf.close();		
+	}
+	private static void update() {
+		// Nạp persistence.xml và tạo EntityManagerFactory
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+				// Tạo EntityManager để bắt đầu làm việc với CSDL
+				EntityManager em = emf.createEntityManager();
+				try {
+					em.getTransaction().begin(); // Bắt đầu Transaction
+					
+					User entity = new User();
+					entity.setId("ID003");
+					entity.setFullname("Le Van Teo 2");
+					entity.setEmail("teolv2@gmail.com");
+					entity.setPassword("abc");
+
+					// Insert vào CSDL
+					em.merge(entity);
+					
+					em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+				} catch (Exception e) {
+					em.getTransaction().rollback(); // Hủy thao tác
+					System.out.println("Error: "+e);
+				}
+				em.close();
+				emf.close();
+	}
+	private static void delete() {
+				// Nạp persistence.xml và tạo EntityManagerFactory
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+				// Tạo EntityManager để bắt đầu làm việc với CSDL
+				EntityManager em = emf.createEntityManager();
+				try {
+					em.getTransaction().begin(); // Bắt đầu Transaction
+					
+					User entity = em.find(User.class, "ID003");
+					// Insert vào CSDL
+					em.remove(entity);
+					
+					em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+				} catch (Exception e) {
+					em.getTransaction().rollback(); // Hủy thao tác
+					System.out.println("Error: "+e);
+				}
+				em.close();
+				emf.close();		
+	}
+	private static void findAll() {
+		// Nạp persistence.xml và tạo EntityManagerFactory
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+				// Tạo EntityManager để bắt đầu làm việc với CSDL
+				EntityManager em = emf.createEntityManager();
+				try {
+					em.getTransaction().begin(); // Bắt đầu Transaction
+					
+					//Câu lệnh JPQL truy vấn thực thể
+					String jpql = "SELECT o FROM User o";
+					//Tạo Query/TypedQuery<T> để truy vấn
+					TypedQuery<User> query = em.createQuery(jpql, User.class);
+					//Truy vấn danh sách thực thể
+					List<User> list = query.getResultList();
+					System.out.println("--------------------------------");
+					for(User user : list) {
+						System.out.println(user.getId()+"\t"+user.getFullname()+"\t"+user.getEmail());
+					}
+					
+					em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+				} catch (Exception e) {
+					em.getTransaction().rollback(); // Hủy thao tác
+					System.out.println("Error: "+e);
+				}
+				em.close();
+				emf.close();		
+	}
+	private static void findByRole(boolean role) {
+		// Nạp persistence.xml và tạo EntityManagerFactory
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+		// Tạo EntityManager để bắt đầu làm việc với CSDL
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin(); // Bắt đầu Transaction
+			
+			String jpql = "SELECT o FROM User o WHERE o.admin=:role";
+			TypedQuery<User> query = em.createQuery(jpql, User.class);
+			query.setParameter("role", role);
+			List<User> list = query.getResultList();
+			System.out.println("--------------------------------");
+			for(User user : list) {
+				System.out.println(user.getId()+"\t"+user.getFullname()+"\t"+user.getEmail()+"\t"+user.getAdmin());
+			}
+			
+			em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+		} catch (Exception e) {
+			em.getTransaction().rollback(); // Hủy thao tác
+			System.out.println("Error: "+e);
+		}
+		em.close();
+		emf.close();			
+	}
+	private static void findByKeyword(String keyword) {
+		// Nạp persistence.xml và tạo EntityManagerFactory
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+		// Tạo EntityManager để bắt đầu làm việc với CSDL
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin(); // Bắt đầu Transaction
+			
+			// Câu lệnh truy vấn JPQL 
+			String jpql = "SELECT o FROM User o WHERE o.fullname LIKE ?0"; 
+			// Tạo đối tượng truy vấn 
+			TypedQuery<User> query = em.createQuery(jpql, User.class); 
+			query.setParameter(0, '%'+keyword+'%'); 
+			// Truy vấn 
+			List<User> list = query.getResultList(); 
+			// Hiển thị kết quả truy vấn 
+			System.out.println("--------------------------------");
+			for(User user : list) {
+				System.out.println(user.getId()+"\t"+user.getFullname()+"\t"+user.getEmail()+"\t"+user.getAdmin());
+			}
+			
+			em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+		} catch (Exception e) {
+			em.getTransaction().rollback(); // Hủy thao tác
+			System.out.println("Error: "+e);
+		}
+		em.close();
+		emf.close();	
+	}
+	private static void findOne(String username, String password) {
+		// Nạp persistence.xml và tạo EntityManagerFactory
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+		// Tạo EntityManager để bắt đầu làm việc với CSDL
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin(); // Bắt đầu Transaction
+			
+			// Câu lệnh truy vấn JPQL 
+			String jpql = "SELECT o FROM User o WHERE o.id=?0 and o.password=?1"; 
+			// Tạo đối tượng truy vấn 
+			TypedQuery<User> query = em.createQuery(jpql, User.class); 
+			query.setParameter(0, username); 
+			query.setParameter(1, password);
+			// Truy vấn 
+			User user = query.getSingleResult(); 
+			// Hiển thị kết quả truy vấn 
+			System.out.println("--------------------------------");
+			System.out.println(user.getId()+"\t"+user.getFullname()+"\t"+user.getEmail()+"\t"+user.getAdmin());		
+			em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+		} catch (Exception e) {
+			em.getTransaction().rollback(); // Hủy thao tác
+			System.out.println("Error: "+e);
+		}
+		em.close();
+		emf.close();	
+	}
+	private static void findPage(int page, int size) {
+				// Nạp persistence.xml và tạo EntityManagerFactory
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyOE");
+				// Tạo EntityManager để bắt đầu làm việc với CSDL
+				EntityManager em = emf.createEntityManager();
+				try {
+					em.getTransaction().begin(); // Bắt đầu Transaction
+					
+					String jpql = "SELECT o FROM User o";
+					TypedQuery<User> query = em.createQuery(jpql, User.class);
+					query.setFirstResult(page);
+					query.setMaxResults(size);
+					List<User> list = query.getResultList();
+					System.out.println("--------------------------------");
+					for(User user : list) {
+						System.out.println(user.getId()+"\t"+user.getFullname()+"\t"+user.getEmail()+"\t"+user.getAdmin());
+					}
+					
+					em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+				} catch (Exception e) {
+					em.getTransaction().rollback(); // Hủy thao tác
+					System.out.println("Error: "+e);
+				}
+				em.close();
+				emf.close();	
+	}	
+	
+}

@@ -1,0 +1,61 @@
+@charset "UTF-8";
+  .tong {
+        width: 960px;
+        height: 1000px;
+        margin: 0px auto;
+      }
+          header{
+        background-color: aqua;
+        width: 960px;
+        height: 250px;
+      }
+ 
+      .tong header{
+      background-image: url("img/9.jpg"); 
+      background-size: 100% 100%;
+      line-height: 200px;
+      margin-bottom: 2px;
+      
+      }
+      nav {
+        background-color: #d9ff50;
+        width: 960px;
+        height: 50px;
+      }
+      article {
+        background-color: #c4b8b8 ;
+        width: 70%;
+        height: 500px;
+        float: left;
+      }
+      .meta-info {
+            font-size: 14px;
+            font-style: italic;
+            text-align: right;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+      .item {
+        display: flex; /* Sắp xếp các thành phần con nằm trên cùng một hàng */
+        align-items: center; /* Canh giữa các phần tử theo chiều dọc */
+        margin-bottom: 10px; /* Khoảng cách giữa các mục */
+      }
+    
+      .thongtin {
+        flex: 2; /* Chiếm nhiều không gian hơn cho thông tin */
+        padding-left: 20px; /* Thêm khoảng cách giữa ảnh và thông tin */
+      }
+      aside {
+        background-color: #8be4c1;
+        width: 30%;
+        height: 500px;
+        float: right;
+        box-sizing: border-box;
+      }
+      footer {
+        background-color: aqua;
+        width: 100%;
+        height: 50px;
+        float: left;
+      }

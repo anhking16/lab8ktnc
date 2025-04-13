@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý Sản phẩm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+    /* Tông màu nền xanh dương nhạt */
+    /* Nút chung màu xanh dương (Trên xanh – Dưới trắng) */
+.btn-blue, .btn-primary, .btn-success {
+    background: linear-gradient(to bottom, #0d6efd, #ffffff);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.6);
+}
+.btn-blue:hover, .btn-primary:hover, .btn-success:hover {
+    background: linear-gradient(to bottom, #0b5ed7, #ffffff);
+    box-shadow: 0 6px 12px rgba(13, 110, 253, 0.8);
+}
+
+/* Nút Xóa (Trên đỏ – Dưới trắng) */
+.btn-red, .btn-danger {
+    background: linear-gradient(to bottom, #dc3545, #ffffff);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.6);
+}
+.btn-red:hover, .btn-danger:hover {
+    background: linear-gradient(to bottom, #bb2d3b, #ffffff);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.8);
+}
+    
+body {
+
+    background-color: #e3f2fd;
+    font-family: Arial, sans-serif;
+}
+
+/* Khung nội dung */
+.container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề */
+h2, h3 {
+    color: #0d6efd;
+}
+
+/* Bo góc, làm đẹp input */
+.form-control {
+    border-radius: 8px;
+}
+
+/* Nút chung màu xanh dương (Trên xanh – Dưới trắng) */
+.btn-blue {
+    background: linear-gradient(to bottom, #0d6efd, #ffffff);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.6);
+}
+.btn-blue:hover {
+    background: linear-gradient(to bottom, #0b5ed7, #ffffff);
+    box-shadow: 0 6px 12px rgba(13, 110, 253, 0.8);
+}
+
+/* Nút Xóa (Trên đỏ – Dưới trắng) */
+.btn-red {
+    background: linear-gradient(to bottom, #dc3545, #ffffff);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.6);
+}
+.btn-red:hover {
+    background: linear-gradient(to bottom, #bb2d3b, #ffffff);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.8);
+}
+
+/* Bảng danh sách sản phẩm */
+table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+th {
+    background: #0d6efd;
+    color: white;
+    text-align: center;
+}
+td, th {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+/* Nút sửa, xóa nhỏ trong bảng */
+.btn-sm {
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="text-center">Quản lý Sản phẩm</h2>
+
+    <!-- Form nhập thông tin sản phẩm -->
+    <form th:action="@{/admin/products/save}" method="post" th:object="${product}">
+        <div class="mb-3">
+            <label class="form-label">Mã sản phẩm</label>
+            <input type="text" class="form-control" th:field="*{id}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" th:field="*{namesv}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Giá</label>
+            <input type="number" class="form-control" th:field="*{price}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Số lượng</label>
+            <input type="number" class="form-control" th:field="*{quantity}" required>
+        </div>
+        
+        <button type="submit" class="btn btn-success">Cập nhật</button>
+       <a th:href="@{/admin/products}" class="btn btn-primary">Thêm mới</a>
+
+            <a th:href="@{/admin/products/delete/{id}(id=${product.id})}"
+   class="btn btn-danger"
+   onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">
+   Xóa
+</a>
+
+    </form>
+
+    <hr>
+
+    <!-- Bảng danh sách sản phẩm -->
+    <h3>Danh sách Sản phẩm</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mã SP</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="prod : ${products}">
+                <td th:text="${prod.id}"></td>
+                <td th:text="${prod.namesv}"></td>
+                <td th:text="${prod.price}"></td>
+                <td th:text="${prod.quantity}"></td>
+                <td>
+                    <a th:href="@{/admin/products/edit/{id}(id=${prod.id})}" class="btn btn-primary btn-sm">Sửa</a>
+                    <a th:href="@{/admin/products/delete/{id}(id=${prod.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

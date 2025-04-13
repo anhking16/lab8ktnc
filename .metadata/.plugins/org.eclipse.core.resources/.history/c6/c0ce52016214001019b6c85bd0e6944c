@@ -1,0 +1,85 @@
+package com.poly.test;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+import java.time.Duration;
+
+public class AccountEditTest {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @BeforeMethod
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "E:\\kiemthunancao\\chromedriver-win64\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+        driver.get("http://localhost:8080/admin/accounts");
+    }
+
+    @Test
+    public void testEditAccount() {
+        String usernameToEdit = "user01";
+        String newFullname = "Nguyen Van Updated";
+        String newEmail = "updated_email@gmail.com";
+
+        try {
+            // Tìm hàng chứa user01
+            WebElement row = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//tr[td[text()='" + usernameToEdit + "']]")
+            ));
+
+            // Click nút Sửa
+            WebElement editButton = row.findElement(By.xpath(".//a[contains(text(),'Sửa')]"));
+            editButton.click();
+
+            // Chờ form hiện ra
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("fullname")));
+
+            // Sửa thông tin
+            WebElement fullnameField = driver.findElement(By.name("fullname"));
+            WebElement emailField = driver.findElement(By.name("email"));
+
+            fullnameField.clear();
+            fullnameField.sendKeys(newFullname);
+
+            emailField.clear();
+            emailField.sendKeys(newEmail);
+
+            // Nhấn Lưu
+            WebElement saveButton = driver.findElement(By.xpath("//button[contains(text(),'Lưu')]"));
+            saveButton.click();
+
+            // Đợi trang load lại
+            Thread.sleep(2000); // hoặc dùng wait.until...
+
+            // Kiểm tra thông tin đã cập nhật
+            WebElement updatedRow = driver.findElement(
+                    By.xpath("//tr[td[text()='" + usernameToEdit + "']]")
+            );
+            String displayedFullname = updatedRow.findElement(By.xpath("./td[2]")).getText();
+            String displayedEmail = updatedRow.findElement(By.xpath("./td[3]")).getText();
+
+            Assert.assertEquals(displayedFullname, newFullname, "Fullname chưa được cập nhật!");
+            Assert.assertEquals(displayedEmail, newEmail, "Email chưa được cập nhật!");
+
+        } catch (NoSuchElementException e) {
+            Assert.fail("Không tìm thấy tài khoản để sửa: " + usernameToEdit);
+        } catch (Exception e) {
+            Assert.fail("Lỗi khi sửa tài khoản: " + e.getMessage());
+        }
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}

@@ -1,0 +1,5 @@
+package poly.bean;
+
+public class User {
+
+}

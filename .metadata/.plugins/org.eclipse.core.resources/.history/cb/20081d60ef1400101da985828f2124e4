@@ -1,0 +1,138 @@
+package com.poly.test;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.Duration;
+
+public class AccountFormTestsave {
+    WebDriver driver;
+    WebDriverWait wait;
+    Workbook workbook;
+    Sheet sheet;
+    int rowNum = 1;
+
+    @BeforeClass
+    public void setupExcel() {
+        workbook = new XSSFWorkbook();
+        sheet = workbook.createSheet("Account Test");
+        Row header = sheet.createRow(0);
+        header.createCell(0).setCellValue("Username");
+        header.createCell(1).setCellValue("Email");
+        header.createCell(2).setCellValue("Expected");
+        header.createCell(3).setCellValue("Actual");
+    }
+
+    @BeforeMethod
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "E:\\kiemthunancao\\chromedriver-win64\\chromedriver.exe");
+        
+        
+        ChromeOptions options = new ChromeOptions();
+        
+        driver = new ChromeDriver(options);
+        
+        wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+        driver.manage().window().maximize();
+        driver.get("http://localhost:8080/admin/accounts");
+    }
+
+    @Test(dataProvider = "accountData")
+    public void testAddAccount(String username, String password, String fullname, String email, String photo, boolean isAdmin, String expected) {
+        String actualResult;
+
+        try {
+            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
+            WebElement passwordField = driver.findElement(By.name("password"));
+            WebElement fullnameField = driver.findElement(By.name("fullname"));
+            WebElement emailField = driver.findElement(By.name("email"));
+            WebElement photoField = driver.findElement(By.name("photo"));
+            WebElement activatedCheckbox = driver.findElement(By.name("activated"));
+            WebElement adminCheckbox = driver.findElement(By.name("admin"));
+
+            // Nhập dữ liệu vào các trường
+            usernameField.clear();
+            usernameField.sendKeys(username);
+            passwordField.sendKeys(password);
+            fullnameField.sendKeys(fullname);
+            emailField.sendKeys(email);
+            photoField.sendKeys(photo);
+
+            // Checkbox "Admin" hoặc "Khách Hàng"
+            if (isAdmin) {
+                adminCheckbox.click();  
+            } else {
+                activatedCheckbox.click(); 
+            }
+
+            // In ra console để kiểm tra các giá trị
+            System.out.println("Entering username: " + username);
+            System.out.println("Entering password: " + password);
+            System.out.println("Entering fullname: " + fullname);
+            System.out.println("Entering email: " + email);
+
+            // Nhấn nút Lưu
+            WebElement saveButton = driver.findElement(By.xpath("//button[contains(text(),'Lưu')]"));
+            saveButton.click();
+
+            
+            Thread.sleep(5000); // Chờ trong 5 giây
+
+            // Kiểm tra kết quả
+            if (expected.equalsIgnoreCase("Success")) {
+                Assert.assertTrue(driver.getPageSource().contains("Lưu thành công") ||
+                        driver.getCurrentUrl().contains("/admin/accounts"));
+                actualResult = "Success";
+            } else {
+                Assert.assertTrue(driver.getPageSource().contains(expected));
+                actualResult = expected;
+            }
+
+        } catch (Exception e) {
+            actualResult = "Error: " + e.getMessage();
+        }
+
+        // Ghi kết quả vào file Excel
+        Row row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue(username);
+        row.createCell(1).setCellValue(email);
+        row.createCell(2).setCellValue(expected);
+        row.createCell(3).setCellValue(actualResult);
+    }
+
+
+    @AfterClass
+    public void saveExcel() throws IOException {
+        try (FileOutputStream fileOut = new FileOutputStream("E:\\kiemthunancao\\AccountTestResults.xlsx")) {
+            workbook.write(fileOut);
+        }
+        workbook.close();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    @DataProvider(name = "accountData")
+    public Object[][] getAccountData() {
+        return new Object[][] {
+            {"user01", "123", "Nguyen Van A", "user@gmail.com", "avatar.jpg", false, "Success"}, // TC_ADD_001
+            {"", "123", "Nguyen Van C", "user03@gmail.com", "avatar.jpg", false, "Vui lòng nhập tên đăng nhập"}, // TC_ADD_003
+            {"user04", "123", "Nguyen Van D", "user@gmail.com", "avatar.jpg", true, "Email đã được sử dụng"}, // TC_ADD_004
+            {"user05", "123", "Nguyen Van E", "user05@gmail.com", "", false, "Success"}, // TC_ADD_005
+            {"user06", "123", "Nguyen Van F", "user06@gmail.com", "avatar.jpg", false, "Success"}, // TC_ADD_006 (không check admin => user)
+                {"user07", "123", "Nguyen Van G", "abc!%%###@gmail.com", "avatar.jpg", false, "Email chứa ký tự không hợp lệ"} // TC_ADD_008
+        };
+    }
+}

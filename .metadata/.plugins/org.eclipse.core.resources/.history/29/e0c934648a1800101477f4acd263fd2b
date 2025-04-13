@@ -1,0 +1,14 @@
+package poly.com.lab8ktnc;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class hkufk {
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}
