@@ -4517,3 +4517,6 @@ java.util.concurrent.CancellationException
   Class:     org.testng.remote.RemoteTestNG
   Args:      -serport 51637 -protocol json -d E:\eclipseluu\lab8ktnc\test-output C:\Users\20192\AppData\Local\Temp\testng-eclipse-2120405738\testng-customsuite.xml
 java -ea -classpath C:\Users\20192\eclipse\jee-2023-123\eclipse\configuration\org.eclipse.osgi\1153\0\.cp\lib\testng-remote.jar:E:\eclipseluu\lab8ktnc\target\test-classes:E:\eclipseluu\lab8ktnc\target\classes:C:\Users\20192\.m2\repository\org\testng\testng\7.8.0\testng-7.8.0.jar:C:\Users\20192\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar:C:\Users\20192\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar:C:\Users\20192\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar org.testng.remote.RemoteTestNG -serport 51637 -protocol json -d E:\eclipseluu\lab8ktnc\test-output C:\Users\20192\AppData\Local\Temp\testng-eclipse-2120405738\testng-customsuite.xml
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-04-14 00:56:55.736
+!MESSAGE Classpath changed for project: lab8ktnc
